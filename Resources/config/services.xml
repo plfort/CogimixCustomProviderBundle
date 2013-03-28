@@ -4,17 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
+    <!--  
     <parameters>
         <parameter key="cogimix_custom_provider.example.class">Cogipix\CogimixCustomProviderBundle\Example</parameter>
     </parameters>
-
-    <services>
-        <service id="cogimix_custom_provider.example" class="%cogimix_custom_provider.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
     -->
+    <services>
+        <service id="cogimix.custom_provider.plugin_provider" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginProvider">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="cogimix.custom_provider_plugin_factory" />
+            <tag name="cogimix.plugin_provider"/>
+        </service>
+         <service id="cogimix.custom_provider_plugin_factory" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginFactory">
+              <argument type="service" id="service_container"/>
+             </service>
+    </services>
+    
 </container>
