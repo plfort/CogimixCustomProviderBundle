@@ -1,5 +1,7 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Entity;
+use Cogipix\CogimixBundle\Model\SongResult;
+
 use Cogipix\CogimixBundle\Entity\TrackResult;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSerializer;
@@ -8,7 +10,7 @@ use JMS\Serializer\Annotation as JMSSerializer;
  * @author plfort - Cogipix
  *
  */
-class CustomProviderResult extends TrackResult
+class CustomProviderResult extends SongResult
 {
 
   /**
