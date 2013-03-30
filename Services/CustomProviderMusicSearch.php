@@ -21,6 +21,7 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
             CURLOPT_TIMEOUT => 20,
             CURLOPT_POST=>1,
             CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+            CURLOPT_SSL_VERIFYPEER => false
             );
 
     public function __construct()
@@ -35,7 +36,8 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
       //  try{
             $tracks=$this->serializer->deserialize($output, 'ArrayCollection<Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderResult>', 'json');
        foreach($tracks as $track){
-           $track->setUrl('http://localhost/music/web/index.php/get/'.$track->getId());
+           $url=$this->getCustomProviderInfo()->getEndPointUrl().'∕/get/'.$track->getId();
+           $track->setUrl($url);
            $track->setTag('stream');
            $track->setThumbnails('bundles/cogimixcustomprovider/images/cogimix.png');
            $track->setIcon($this->getDefaultIcon());
@@ -49,7 +51,7 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
 
     protected function executeQuery()
     {
-        $c = curl_init($this->customProviderInfo->getEndPointUrl());
+        $c = curl_init($this->customProviderInfo->getEndPointUrl().'/search');
         /* On indique à curl quelle url on souhaite télécharger */
        //echo $this->serializer->serialize($this->searchQuery);die();
 
