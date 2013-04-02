@@ -1,34 +1,35 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Entity;
-use Cogipix\CogimixBundle\Model\SongResult;
 
 use Cogipix\CogimixBundle\Entity\TrackResult;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSerializer;
 /**
- *
+  * @JMSSerializer\AccessType("public_method")
  * @author plfort - Cogipix
- *
  */
-class CustomProviderResult extends SongResult
+class CustomProviderResult extends TrackResult
 {
 
-  /**
-     * @ORM\Column(type="string")
-     * @JMSSerializer\Type("string")
-     * @var unknown_type
-     */
 
-    protected $url;
 
-    public function getUrl()
-    {
-        return $this->url;
+    public function __construct(){
+        parent::__construct();
+        // $this->pluginProperties=array('test'=>array('url'=>'','test'=>'hello'));
     }
+
+
+
 
     public function setUrl($url)
     {
-        $this->url = $url;
+        $this->pluginProperties['url'] =$url;
+    }
+
+
+
+    public function getEntryId(){
+        return $this->getId();
     }
 
 }

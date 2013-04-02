@@ -33,19 +33,20 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
     {
 
         $tracks = array();
-      //  try{
-            $tracks=$this->serializer->deserialize($output, 'ArrayCollection<Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderResult>', 'json');
+       try{
+       $tracks=$this->serializer->deserialize($output, 'ArrayCollection<Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderResult>', 'json');
        foreach($tracks as $track){
-           $url=$this->getCustomProviderInfo()->getEndPointUrl().'∕/get/'.$track->getId();
+           $url=$this->getCustomProviderInfo()->getEndPointUrl().'/get/'.$track->getId();
            $track->setUrl($url);
-           $track->setTag('stream');
-           $track->setThumbnails('bundles/cogimixcustomprovider/images/cogimix.png');
+           $track->setTag($this->getResultTag());
+           $track->setThumbnails($this->getDefaultIcon());
            $track->setIcon($this->getDefaultIcon());
-           $track->setEntryId($track->getId());
+
        }
-       /* }catch(\Exception $ex){
-            $this->logger->debug($ex->getMessage());
-        }*/
+        }catch(\Exception $ex){
+            $this->logger->info($ex->getMessage());
+            return array();
+        }
         return $tracks;
     }
 
@@ -91,7 +92,7 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
 
     public function getResultTag()
     {
-        return 'custom';
+        return 'stream';
     }
 
     public function getDefaultIcon(){
