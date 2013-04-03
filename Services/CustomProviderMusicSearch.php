@@ -75,6 +75,14 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
     protected function buildQuery()
     {
         $this->logger->info($this->searchQuery);
+        if($this->customProviderInfo->getAuthType() == 'basic'){
+            $this->CURL_OPTS[CURLOPT_HTTPAUTH]=CURLAUTH_BASIC;
+            $this->CURL_OPTS[CURLOPT_USERPWD]=$this->customProviderInfo->getUsername() . ":" . $this->customProviderInfo->getPassword();
+        }
+        if($this->customProviderInfo->getAuthType() == 'digest'){
+            $this->CURL_OPTS[CURLOPT_HTTPAUTH]=CURLAUTH_DIGEST;
+            $this->CURL_OPTS[CURLOPT_USERPWD]=$this->customProviderInfo->getUsername() . ":" . $this->customProviderInfo->getPassword();
+        }
 
         $this->CURL_OPTS[CURLOPT_POSTFIELDS]=$this->serializer->serialize($this->searchQuery,'json');
 

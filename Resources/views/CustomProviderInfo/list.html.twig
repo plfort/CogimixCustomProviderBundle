@@ -1,0 +1,8 @@
+{% spaceless %}
+<a id="createCustomProviderInfoBtn" class="btn btn-success" href="#">Add</a>
+<ul id="customProviderInfoList">
+{% for customProviderInfo in customProviderInfos %}
+{% include 'CogimixCustomProviderBundle:CustomProviderInfo:listItem.html.twig' %}
+{% endfor %}
+</ul>
+{% endspaceless %}

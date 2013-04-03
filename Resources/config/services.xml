@@ -18,7 +18,16 @@
         </service>
          <service id="cogimix.custom_provider_plugin_factory" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginFactory">
               <argument type="service" id="service_container"/>
-             </service>
+         </service>
+         
+         <service id="cogimix.custom_provider.menu_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Menu\MenuRenderer">
+               
+                <tag name="cogimix.menu_renderer"/>
+           </service>
+           <service id="cogimix.custom_provider.modal_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Modal\ModalRenderer">
+               
+                <tag name="cogimix.modal_renderer"/>
+           </service>
     </services>
     
 </container>

@@ -1,10 +1,15 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Entity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  *
  * @author plfort - Cogipix
  * @ORM\Entity
+ * @UniqueEntity(fields="alias",message="Alias already used",groups={"Create"})
  */
 class CustomProviderInfo
 {
@@ -18,18 +23,38 @@ class CustomProviderInfo
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
      */
     protected $alias;
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
      */
     protected $endPointUrl;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank(message="This value should not be blank",groups={"CreateWithAuth"})
+     */
+    protected $authType;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank(message="This value should not be blank",groups={"CreateWithAuth"})
+     */
+    protected $username;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $password;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cogipix\CogimixBundle\Entity\User")
@@ -80,6 +105,36 @@ class CustomProviderInfo
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function getAuthType()
+    {
+        return $this->authType;
+    }
+
+    public function setAuthType($authType)
+    {
+        $this->authType = $authType;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
 }
