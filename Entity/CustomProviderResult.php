@@ -1,7 +1,7 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Entity;
 
-use Cogipix\CogimixBundle\Entity\TrackResult;
+use Cogipix\CogimixCommonBundle\Entity\TrackResult;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSerializer;
 /**

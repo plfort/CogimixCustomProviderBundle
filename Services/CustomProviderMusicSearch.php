@@ -1,9 +1,7 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Services;
 use Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderInfo;
-
-use Cogipix\CogimixBundle\Entity\TrackResult;
-use Cogipix\CogimixBundle\Services\AbstractMusicSearch;
+use Cogipix\CogimixCommonBundle\MusicSearch\AbstractMusicSearch;
 
 class CustomProviderMusicSearch extends AbstractMusicSearch
 {

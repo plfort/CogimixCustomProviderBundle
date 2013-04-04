@@ -2,7 +2,7 @@
 namespace Cogipix\CogimixCustomProviderBundle\Services;
 
 
-use Cogipix\CogimixBundle\Services\PluginProviderInterface;
+use Cogipix\CogimixCommonBundle\Plugin\PluginProviderInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 

@@ -1,5 +1,7 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\Entity;
+use Cogipix\CogimixCommonBundle\Entity\User;
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -57,7 +59,7 @@ class CustomProviderInfo
     protected $password;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Cogipix\CogimixBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Cogipix\CogimixCommonBundle\Entity\User")
      * @var unknown_type
      */
     protected $user;
@@ -102,7 +104,7 @@ class CustomProviderInfo
         return $this->user;
     }
 
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }

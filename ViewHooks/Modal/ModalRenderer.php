@@ -1,7 +1,7 @@
 <?php
 namespace Cogipix\CogimixCustomProviderBundle\ViewHooks\Modal;
 
-use Cogipix\CogimixBundle\ViewHooks\Modal\ModalItemInterface;
+use Cogipix\CogimixCommonBundle\ViewHooks\Modal\ModalItemInterface;
 
 class ModalRenderer implements ModalItemInterface
 {

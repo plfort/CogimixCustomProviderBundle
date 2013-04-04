@@ -8,7 +8,7 @@ use Cogipix\CogimixCustomProviderBundle\Form\CustomProviderInfoEditFormType;
 
 use Cogipix\CogimixCustomProviderBundle\Form\CustomProviderInfoFormType;
 
-use Cogipix\CogimixBundle\Utils\AjaxResult;
+use Cogipix\CogimixCommonBundle\Utils\AjaxResult;
 
 use Symfony\Component\HttpFoundation\Request;
 
