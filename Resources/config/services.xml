@@ -28,6 +28,13 @@
                
                 <tag name="cogimix.modal_renderer"/>
            </service>
+           
+           <service id="cogimix_custom_provider.jsimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Javascript\JavascriptImportRenderer">
+                <tag name="cogimix.jsimport_renderer"/>
+           </service>
+           <service id="cogimix_custom_provider.cssimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Css\CssImportRenderer">
+                <tag name="cogimix.cssimport_renderer"/>
+           </service>
     </services>
     
 </container>

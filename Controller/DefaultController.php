@@ -37,6 +37,42 @@ class DefaultController extends Controller
         $response->addData('modalContent', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:modalContent.html.twig',array('customProviderInfos'=>$customProviderInfos)));
         return $response->createResponse();
     }
+    /**
+     *  @Secure(roles="ROLE_USER")
+     *  @Route("/test",name="_customprovider_test",options={"expose"=true})
+     */
+    public function testCustomProviderInfoAction(Request $request){
+        $response = new AjaxResult();
+
+        $customProviderInfo = new CustomProviderInfo();
+        $form = $this->createForm(new CustomProviderInfoEditFormType(),$customProviderInfo);
+        $params= $request->request->get('custom_provider_create_form');
+        if(isset($params['alias'])){
+            unset($params['alias']);
+            $request->request->set('custom_provider_create_form', $params);
+        }
+        if($request->getMethod()==='POST'){
+            $form->bind($request);
+            if($form->isValid()){
+
+               $plugin= $this->get('cogimix.custom_provider_plugin_factory')->createCustomProviderPlugin($customProviderInfo);
+                if(($responsePlugin = $plugin->testRemote()) !==false){
+                    $response->setSuccess(true);
+                    $response->addData('message', $responsePlugin['count'].' songs found');
+                }else{
+                    $response->setSuccess(false);
+                    $response->addData('message', "Can't acces the remote provider.");
+                }
+
+
+            }else{
+
+                $response->setSuccess(false);
+                $response->addData('message', "Errors in form");
+            }
+        }
+        return $response->createResponse();
+       }
 
     /**
      *  @Secure(roles="ROLE_USER")
@@ -50,7 +86,9 @@ class DefaultController extends Controller
         $customProviderInfo = new CustomProviderInfo();
 
         $customProviderInfo->setUser($user);
-            $response->addData('formType', 'create');
+        $action ='create';
+            $response->addData('formType', $action);
+
             $form = $this->createForm(new CustomProviderInfoFormType(),$customProviderInfo);
             if($request->getMethod()==='POST'){
                 $form->bind($request);
@@ -61,11 +99,11 @@ class DefaultController extends Controller
                     $response->addData('newItem', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:listItem.html.twig',array('customProviderInfo'=>$customProviderInfo)));
                 }else{
                     $response->setSuccess(false);
-                    $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('actionUrl'=>$actionUrl, 'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
+                    $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl, 'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
                 }
             }else{
                 $response->setSuccess(true);
-                $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
+                $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('action'=>$action, 'actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
             }
 
 
@@ -83,10 +121,12 @@ class DefaultController extends Controller
         $user = $this->getCurrentUser();
         $em = $this->getDoctrine()->getEntityManager();
         $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
-        if($customProviderInfo!==null){
+        if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
             $actionUrl = $this->generateUrl('_customprovider_edit',array('id'=>$id));
-            $response->addData('formType', 'edit');
+            $action='edit';
+            $response->addData('formType',$action);
             $form = $this->createForm(new CustomProviderInfoEditFormType(),$customProviderInfo);
+
             if($request->getMethod()==='POST'){
                 $form->bind($request);
                 if($form->isValid()){
@@ -94,15 +134,35 @@ class DefaultController extends Controller
                         $response->setSuccess(true);
                         //return $response->createResponse();
                 }else{
+
                     $response->setSuccess(false);
-                    $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
+                    $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
                 }
             }else{
                 $response->setSuccess(true);
-                $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
+                $response->addData('formHtml', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl,'customProviderInfo'=>$customProviderInfo,'form'=>$form->createView())));
             }
        }
 
+
+        return $response->createResponse();
+    }
+    /**
+     *  @Secure(roles="ROLE_USER")
+     *  @Route("/remove/{id}",name="_customprovider_remove",options={"expose"=true})
+     */
+    public function removeCustomProviderInfoAction(Request $request, $id){
+        $response = new AjaxResult();
+
+        $user = $this->getCurrentUser();
+        $em = $this->getDoctrine()->getEntityManager();
+        $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
+        if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
+            $em->remove($customProviderInfo);
+            $em->flush();
+            $response->setSuccess(true);
+            $response->addData('id', $id);
+        }
 
         return $response->createResponse();
     }

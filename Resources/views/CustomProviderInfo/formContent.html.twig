@@ -1,13 +1,30 @@
-<form action="{{ actionUrl }}" method="POST">
 <div class="row">
+<a class="pull-right btn btn-mini btn-danger removeCustomProviderInfoBtn" href="{{ path('_customprovider_remove',{id:customProviderInfo.id}) }}" >Remove</a>
+</div>
+<form action="{{ actionUrl }}" method="POST">
+
+<div class="row">
+<div class="formMessage">
+</div>
+{% if action =='edit' %}
 <div class="span3">
 Alias : <b>{{ customProviderInfo.alias }}</b>
 </div>
+{% endif %}
+{% if action =='create' %}
+<div class="span3">
+{{ form_row(form.alias) }}
+</div>
+{% endif %}
 <div class="span3">
 {{ form_row(form.name) }}
 </div>
-<div class="span3">
-{{ form_row(form.endPointUrl) }}
+<div class="span3 input-append">
+{{ form_label(form.endPointUrl) }}
+{{ form_widget(form.endPointUrl) }}
+<a class="btn btn-success testCustomProviderBtn">Test</a>
+</div>
+<div class="span3 testCustomProviderResult">
 </div>
 <div class="span3">
 {{ form_row(form.authType) }}

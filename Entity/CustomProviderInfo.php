@@ -25,7 +25,7 @@ class CustomProviderInfo
 
     /**
      * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create","Edit"})
      */
     protected $name;
 
@@ -37,7 +37,7 @@ class CustomProviderInfo
 
     /**
      * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create","Edit"})
      */
     protected $endPointUrl;
 
