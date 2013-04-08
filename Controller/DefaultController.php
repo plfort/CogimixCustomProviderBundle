@@ -30,7 +30,7 @@ class DefaultController extends Controller
      */
     public function getManageModalAction(Request $request){
         $response = new AjaxResult();
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $customProviderInfos=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findByUser($user);
         $response->setSuccess(true);
@@ -81,7 +81,7 @@ class DefaultController extends Controller
     public function createCustomProviderInfoAction(Request $request){
         $response = new AjaxResult();
        $actionUrl = $this->generateUrl('_customprovider_create');
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $customProviderInfo = new CustomProviderInfo();
 
@@ -118,7 +118,7 @@ class DefaultController extends Controller
     public function editCustomProviderInfoAction(Request $request,$id){
         $response = new AjaxResult();
 
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
         if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
@@ -154,7 +154,7 @@ class DefaultController extends Controller
     public function removeCustomProviderInfoAction(Request $request, $id){
         $response = new AjaxResult();
 
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
         if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
@@ -167,10 +167,4 @@ class DefaultController extends Controller
         return $response->createResponse();
     }
 
-    private function getCurrentUser() {
-        $user = $this->get('security.context')->getToken()->getUser();
-        if ($user instanceof \FOS\UserBundle\Model\UserInterface)
-            return $user;
-        return null;
-    }
 }

@@ -48,10 +48,12 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
         return $tracks;
     }
 
+    /**
+     * Ping the current provider
+     * @return boolean|mixed
+     */
     public function testRemote(){
      $c = curl_init($this->customProviderInfo->getEndPointUrl().'/ping');
-        /* On indique à curl quelle url on souhaite télécharger */
-       //echo $this->serializer->serialize($this->searchQuery);die();
          $CURL_OPTS = array(
                  CURLOPT_CONNECTTIMEOUT => 10,
                  CURLOPT_RETURNTRANSFER => true,
@@ -60,12 +62,7 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
                  CURLOPT_SSL_VERIFYPEER => false,
          );
         curl_setopt_array($c, $CURL_OPTS);
-
-        /* On execute la requete */
         $output = curl_exec($c);
-
-        //echo $output;die();
-        /* On a une erreur alors on la lève */
         if ($output === false) {
             $this->logger->err(curl_error($c));
 
