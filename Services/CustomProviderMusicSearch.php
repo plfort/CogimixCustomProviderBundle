@@ -13,14 +13,11 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
     private $customProviderInfo;
     private $serializer;
 
-    private $CURL_OPTS = array(
-            CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_POST=>1,
+    private $CURL_OPTS = array(CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 20,
+            CURLOPT_POST => 1,
             CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-            CURLOPT_SSL_VERIFYPEER => false,
-            );
+            CURLOPT_SSL_VERIFYPEER => false,);
 
     public function __construct()
     {
@@ -31,17 +28,21 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
     {
 
         $tracks = array();
-       try{
-       $tracks=$this->serializer->deserialize($output, 'ArrayCollection<Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderResult>', 'json');
-       foreach($tracks as $track){
-           $url=$this->getCustomProviderInfo()->getEndPointUrl().'/get/'.$track->getId();
-           $track->setUrl($url);
-           $track->setTag($this->getResultTag());
-           $track->setThumbnails($this->getDefaultIcon());
-           $track->setIcon($this->getDefaultIcon());
+        try {
+            $tracks = $this->serializer
+                    ->deserialize($output,
+                            'ArrayCollection<Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderResult>',
+                            'json');
+            foreach ($tracks as $track) {
+                $url = $this->getCustomProviderInfo()->getEndPointUrl()
+                        . '/get/' . $track->getId();
+                $track->setUrl($url);
+                $track->setTag($this->getResultTag());
+                $track->setThumbnails($this->getDefaultIcon());
+                $track->setIcon($this->getDefaultIcon());
 
-       }
-        }catch(\Exception $ex){
+            }
+        } catch (\Exception $ex) {
             $this->logger->info($ex->getMessage());
             return array();
         }
@@ -52,25 +53,23 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
      * Ping the current provider
      * @return boolean|mixed
      */
-    public function testRemote(){
-     $c = curl_init($this->customProviderInfo->getEndPointUrl().'/ping');
-         $CURL_OPTS = array(
-                 CURLOPT_CONNECTTIMEOUT => 10,
-                 CURLOPT_RETURNTRANSFER => true,
-                 CURLOPT_TIMEOUT => 20,
-                 CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-                 CURLOPT_SSL_VERIFYPEER => false,
-         );
-        curl_setopt_array($c, $CURL_OPTS);
+    public function testRemote()
+    {
+        $this->buildQuery();
+        unset($this->CURL_OPTS[CURLOPT_POSTFIELDS]);
+        unset($this->CURL_OPTS[CURLOPT_POST]);
+        $c = curl_init($this->customProviderInfo->getEndPointUrl() . '/ping');
+
+        curl_setopt_array($c, $this->CURL_OPTS);
         $output = curl_exec($c);
         if ($output === false) {
             $this->logger->err(curl_error($c));
 
             return false;
         }
-        $response = json_decode($output,true);
+        $response = json_decode($output, true);
 
-        if(isset($response['count'])){
+        if (isset($response['count'])) {
 
             return $response;
         }
@@ -80,17 +79,12 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
 
     protected function executeQuery()
     {
-        $c = curl_init($this->customProviderInfo->getEndPointUrl().'/search');
-        /* On indique à curl quelle url on souhaite télécharger */
-       //echo $this->serializer->serialize($this->searchQuery);die();
+        $c = curl_init($this->customProviderInfo->getEndPointUrl() . '/search');
 
         curl_setopt_array($c, $this->CURL_OPTS);
 
-        /* On execute la requete */
         $output = curl_exec($c);
 
-        //echo $output;die();
-        /* On a une erreur alors on la lève */
         if ($output === false) {
             $this->logger->err(curl_error($c));
 
@@ -104,16 +98,21 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
     protected function buildQuery()
     {
         $this->logger->info($this->searchQuery);
-        if($this->customProviderInfo->getAuthType() == 'basic'){
-            $this->CURL_OPTS[CURLOPT_HTTPAUTH]=CURLAUTH_BASIC;
-            $this->CURL_OPTS[CURLOPT_USERPWD]=$this->customProviderInfo->getUsername() . ":" . $this->customProviderInfo->getPassword();
+        if ($this->customProviderInfo->getAuthType() == 'basic') {
+            $this->CURL_OPTS[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+            $this->CURL_OPTS[CURLOPT_USERPWD] = $this->customProviderInfo
+                    ->getUsername() . ":"
+                    . $this->customProviderInfo->getPassword();
         }
-        if($this->customProviderInfo->getAuthType() == 'digest'){
-            $this->CURL_OPTS[CURLOPT_HTTPAUTH]=CURLAUTH_DIGEST;
-            $this->CURL_OPTS[CURLOPT_USERPWD]=$this->customProviderInfo->getUsername() . ":" . $this->customProviderInfo->getPassword();
+        if ($this->customProviderInfo->getAuthType() == 'digest') {
+            $this->CURL_OPTS[CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
+            $this->CURL_OPTS[CURLOPT_USERPWD] = $this->customProviderInfo
+                    ->getUsername() . ":"
+                    . $this->customProviderInfo->getPassword();
         }
-        if($this->searchQuery){
-            $this->CURL_OPTS[CURLOPT_POSTFIELDS]=$this->serializer->serialize($this->searchQuery,'json');
+        if ($this->searchQuery) {
+            $this->CURL_OPTS[CURLOPT_POSTFIELDS] = $this->serializer
+                    ->serialize($this->searchQuery, 'json');
         }
 
     }
@@ -133,7 +132,8 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
         return 'stream';
     }
 
-    public function getDefaultIcon(){
+    public function getDefaultIcon()
+    {
         return 'bundles/cogimixcustomprovider/images/cogimix.png';
     }
 
