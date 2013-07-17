@@ -31,7 +31,7 @@ class DefaultController extends Controller
     public function getManageModalAction(Request $request){
         $response = new AjaxResult();
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $customProviderInfos=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findByUser($user);
         $response->setSuccess(true);
         $response->addData('modalContent', $this->renderView('CogimixCustomProviderBundle:CustomProviderInfo:modalContent.html.twig',array('customProviderInfos'=>$customProviderInfos)));
@@ -82,7 +82,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
        $actionUrl = $this->generateUrl('_customprovider_create');
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $customProviderInfo = new CustomProviderInfo();
 
         $customProviderInfo->setUser($user);
@@ -119,7 +119,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
         if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
             $actionUrl = $this->generateUrl('_customprovider_edit',array('id'=>$id));
@@ -155,7 +155,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $customProviderInfo=$em->getRepository('CogimixCustomProviderBundle:CustomProviderInfo')->findOneById($id);
         if($customProviderInfo!==null && $customProviderInfo->getUser()==$user){
             $em->remove($customProviderInfo);
