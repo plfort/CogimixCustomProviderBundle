@@ -14,21 +14,24 @@ Alias : <b>{{ customProviderInfo.alias }}</b>
 </div>
 {% endif %}
 {% if action =='create' %}
-<div class="span3">
+<div class="span4">
 {{ form_row(form.alias) }}
 </div>
 {% endif %}
-<div class="span3">
+<div class="span4">
 {{ form_row(form.name) }}
 </div>
-<div class="span3 input-append">
+{{ form_errors(form.endPointUrl) }}
+<div class="span4 input-append">
+
+
 {{ form_label(form.endPointUrl) }}
 {{ form_widget(form.endPointUrl) }}
 <a class="btn btn-success testCustomProviderBtn">Test</a>
 </div>
-<div class="span3 testCustomProviderResult">
+<div class="span4 testCustomProviderResult">
 </div>
-<div class="span3">
+<div class="span4">
 {{ form_row(form.authType) }}
 </div>
 <div class="span3">
