@@ -134,7 +134,7 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
 
     public function getDefaultIcon()
     {
-        return 'bundles/cogimixcustomprovider/images/cogimix.png';
+        return 'bundles/cogimixcustomprovider/images/cogimix94.png';
     }
 
     public function getCustomProviderInfo()
