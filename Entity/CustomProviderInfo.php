@@ -40,8 +40,8 @@ class CustomProviderInfo
 
     /**
      * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotBlank(message="This value should not be blank",groups={"Create","Edit"})
-     * @Assert\Url(groups={"Create","Edit"})
+     * @Assert\NotBlank(message="This value should not be blank",groups={"Create","Edit","Test"})
+     * @Assert\Url(groups={"Create","Edit","Test"})
      */
     protected $endPointUrl;
 

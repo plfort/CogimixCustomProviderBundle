@@ -2,6 +2,8 @@
 
 namespace Cogipix\CogimixCustomProviderBundle\Controller;
 
+use Cogipix\CogimixCustomProviderBundle\Form\CustomProviderInfoTestFormType;
+
 use Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderInfo;
 
 use Cogipix\CogimixCustomProviderBundle\Form\CustomProviderInfoEditFormType;
@@ -45,7 +47,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
 
         $customProviderInfo = new CustomProviderInfo();
-        $form = $this->createForm(new CustomProviderInfoEditFormType(),$customProviderInfo);
+        $form = $this->createForm(new CustomProviderInfoTestFormType(),$customProviderInfo);
         $params= $request->request->get('custom_provider_create_form');
         if(isset($params['alias'])){
             unset($params['alias']);
@@ -63,7 +65,6 @@ class DefaultController extends Controller
                     $response->setSuccess(false);
                     $response->addData('message', "Can't acces the remote provider.");
                 }
-
 
             }else{
 
