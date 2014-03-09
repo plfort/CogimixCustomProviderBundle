@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <!--  
     <parameters>
@@ -16,25 +16,24 @@
             <argument type="service" id="cogimix.custom_provider_plugin_factory" />
             <tag name="cogimix.plugin_provider"/>
         </service>
-         <service id="cogimix.custom_provider_plugin_factory" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginFactory">
-              <argument type="service" id="service_container"/>
-         </service>
+        <service id="cogimix.custom_provider_plugin_factory" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginFactory">
+            <argument type="service" id="service_container"/>
+        </service>
          
-         <service id="cogimix.custom_provider.menu_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Menu\MenuRenderer">
+        <service id="cogimix.custom_provider.menu_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Menu\MenuItem">
+            <tag name="cogimix.menu_item"/>
+        </service>
+        <service id="cogimix.custom_provider.modal_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Modal\ModalRenderer">
                
-                <tag name="cogimix.menu_renderer"/>
-           </service>
-           <service id="cogimix.custom_provider.modal_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Modal\ModalRenderer">
-               
-                <tag name="cogimix.modal_renderer"/>
-           </service>
+            <tag name="cogimix.modal_renderer"/>
+        </service>
            
-           <service id="cogimix_custom_provider.jsimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Javascript\JavascriptImportRenderer">
-                <tag name="cogimix.jsimport_renderer"/>
-           </service>
-           <service id="cogimix_custom_provider.cssimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Css\CssImportRenderer">
-                <tag name="cogimix.cssimport_renderer"/>
-           </service>
+        <service id="cogimix_custom_provider.jsimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Javascript\JavascriptImportRenderer">
+            <tag name="cogimix.jsimport_renderer"/>
+        </service>
+        <service id="cogimix_custom_provider.cssimport_renderer" class="Cogipix\CogimixCustomProviderBundle\ViewHooks\Css\CssImportRenderer">
+            <tag name="cogimix.cssimport_renderer"/>
+        </service>
     </services>
     
 </container>
