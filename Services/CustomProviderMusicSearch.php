@@ -2,6 +2,7 @@
 namespace Cogipix\CogimixCustomProviderBundle\Services;
 use Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderInfo;
 use Cogipix\CogimixCommonBundle\MusicSearch\AbstractMusicSearch;
+use Cogipix\CogimixCommonBundle\Model\SearchQuery;
 
 class CustomProviderMusicSearch extends AbstractMusicSearch
 {
@@ -76,9 +77,14 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
         return false;
 
     }
+    
+    public function getPopularSongs(SearchQuery $searchQuery){
+        return array();
+    }
 
     protected function executeQuery()
     {
+        $this->logger->debug("CALL !");
         $c = curl_init($this->customProviderInfo->getEndPointUrl() . '/search');
 
         curl_setopt_array($c, $this->CURL_OPTS);

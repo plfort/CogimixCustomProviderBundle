@@ -51,9 +51,17 @@ class CustomProviderPluginProvider implements PluginProviderInterface{
 
 
     protected function getCurrentUser() {
-        $user = $this->securityContext->getToken()->getUser();
-        if ($user instanceof \FOS\UserBundle\Model\UserInterface)
-            return $user;
+        
+        $token = $this->securityContext->getToken();
+        if($token != null){
+           
+            $user = $token->getUser();
+            if ($user instanceof \FOS\UserBundle\Model\UserInterface){
+                return $user;
+            }
+                
+        }
+        
         return null;
     }
 
