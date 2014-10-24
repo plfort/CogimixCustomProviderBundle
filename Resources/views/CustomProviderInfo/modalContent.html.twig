@@ -1,11 +1,16 @@
 <div class="row">
-<div class="span6">
-<a id="createCustomProviderInfoBtn" class="btn btn-success" href="#">Add</a>
+<div class="col-sm-12">
+<a id="createCustomProviderInfoBtn" class="btn btn-success" href="#">{{ 'cogimix.custom_provider.add'|trans }}</a>
 </div>
-<div class="span2 customProviderListContainer">
-{% include 'CogimixCustomProviderBundle:CustomProviderInfo:list.html.twig' %}
+<div class="col-sm-3 customProviderListContainer">
+<ul id="customProviderInfoList" class="well">
+{% for customProviderInfo in customProviderInfos %}
+{% include 'CogimixCustomProviderBundle:CustomProviderInfo:listItem.html.twig' %}
+{% endfor %}
+</ul>
 </div>
-<div id="customProviderInfoForm" class="span4">
+
+<div id="customProviderInfoForm" class="col-sm-9">
 
 </div>
 </div>

@@ -1,47 +1,70 @@
+<div class="row">
+<div class="col-sm-12">
 {% if action =='edit' %}
-<div class="row">
-<a class="pull-right btn btn-mini btn-danger removeCustomProviderInfoBtn" href="{{ path('_customprovider_remove',{id:customProviderInfo.id}) }}" >Remove</a>
-</div>
-{% endif %}
-<form action="{{ actionUrl }}" method="POST">
 
-<div class="row">
+<a class="pull-right btn btn-sm btn-danger removeCustomProviderInfoBtn" href="{{ path('_customprovider_remove',{id:customProviderInfo.id}) }}">Remove</a>
+
+{% endif %}
+<form class="form-horizontal" action="{{ actionUrl }}" method="POST">
+
 <div class="formMessage">
 </div>
 {% if action =='edit' %}
-<div class="span3">
+<div class="col-sm-8">
 Alias : <b>{{ customProviderInfo.alias }}</b>
 </div>
 {% endif %}
 {% if action =='create' %}
-<div class="span4">
-{{ form_row(form.alias) }}
+<div class="form-group">
+    {{ form_label(form.alias,null,{'label_attr':{'class':'col-sm-3'} }) }}
+     <div class="col-sm-8">
+    {{ form_widget(form.alias,{'attr':{'class':' form-control'} }) }}
+    </div>
 </div>
 {% endif %}
-<div class="span4">
-{{ form_row(form.name) }}
+<div class="form-group">
+{{ form_label(form.name,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.name,{'attr':{'class':' form-control'} }) }}
 </div>
+</div>
+
+<div class="form-group">
 {{ form_errors(form.endPointUrl) }}
-<div class="span4 input-append">
+{{ form_label(form.endPointUrl,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+<div class="input-group">
+{{ form_widget(form.endPointUrl,{'attr':{'class':' form-control'} }) }}
+<span class="input-group-btn"><a class="btn btn-success testCustomProviderBtn">Test</a></span>
+</div>
+</div>
+</div>
+<div class="col-sm-12 testCustomProviderResult">
+</div>
 
+<div class="form-group">
+{{ form_label(form.authType,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.authType,{'attr':{'class':' form-control'} }) }}
+</div>
+</div>
 
-{{ form_label(form.endPointUrl) }}
-{{ form_widget(form.endPointUrl) }}
-<a class="btn btn-success testCustomProviderBtn">Test</a>
+<div class="form-group">
+{{ form_label(form.username,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.username,{'attr':{'class':' form-control'} }) }}
 </div>
-<div class="span4 testCustomProviderResult">
 </div>
-<div class="span4">
-{{ form_row(form.authType) }}
+<div class="form-group">
+
+{{ form_label(form.password,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.password,{'attr':{'class':' form-control'} }) }}
 </div>
-<div class="span3">
-{{ form_row(form.username) }}
-</div>
-<div class="span3">
-{{ form_row(form.password) }}
 </div>
 {{ form_rest(form) }}
 <input type="submit" class="offset1 btn btn-success" value="Save"/>
-</div>
-</form>
 
+</form>
+</div>
+</div>

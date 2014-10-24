@@ -58,7 +58,7 @@ $(document).ready(function(){
 			if(response.success==true){
 				$modalBody.find('.testCustomProviderResult').html('<div class="alert alert-success">'+response.data.message+'</div>');
 			}else{
-				$modalBody.find('.testCustomProviderResult').html('<div class="alert alert-error">'+response.data.message+'</div>');
+				$modalBody.find('.testCustomProviderResult').html('<div class="alert alert-danger">'+response.data.message+'</div>');
 			}
 			
 		},'json');
@@ -72,7 +72,7 @@ $(document).ready(function(){
 			currentForm.find('.formMessage').empty();
 			if(response.success==true){
 				$modal.addClass('refreshOnClose');
-				currentForm.find('.formMessage').html('<div class="span3 center alert alert-success">Saved !</div>')
+				currentForm.find('.formMessage').html('<div class="col-sm-12 center alert alert-success">Saved !</div>')
 				if(response.data.formType=='create'){
 					$modalBody.find("#customProviderInfoList").append(response.data.newItem);
 				    
