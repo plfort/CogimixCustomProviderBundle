@@ -17,14 +17,14 @@ class CustomProviderInfoFormType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
         ->add('name', 'text', array(
-                'label' => 'Display name'))
+                'label' => 'cogimix.custom_provider.display_name'))
         ->add('alias', 'text', array(
-                        'label' => 'Unique alias'))
-        ->add('authType', 'choice', array('choices'=>array('none'=>'None','basic'=>'Basic','digest'=>'Digest'),
-                                'label' => 'Auth'))
-        ->add('username','text',array('label'=>'Username','required'=>false))
-        ->add('password','text',array('label'=>'Password','required'=>false))
-       ->add('endPointUrl','text',array('label'=>'URL'));
+                        'label' => 'cogimix.custom_provider.unique_alias'))
+        ->add('authType', 'choice', array('choices'=>array('none'=>'cogimix.custom_provider.authentification.none','basic'=>'cogimix.custom_provider.authentification.basic','digest'=>'cogimix.custom_provider.authentification.digest'),
+                                'label' => 'cogimix.custom_provider.authentification'))
+        ->add('username','text',array('label'=>'cogimix.custom_provider.authentification.username','required'=>false))
+        ->add('password','text',array('label'=>'cogimix.custom_provider.authentification.password','required'=>false))
+       ->add('endPointUrl','text',array('label'=>'cogimix.custom_provider.endpoint_url'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

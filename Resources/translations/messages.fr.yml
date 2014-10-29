@@ -1,2 +1,12 @@
 cogimix.manage_custom_providers: Gérer vos sources personnalisés
 cogimix.custom_provider.add: Ajouter
+cogimix.custom_provider.unique_alias: Alias unique
+cogimix.custom_provider.display_name: Nom (pour l'affichage)
+cogimix.custom_provider.authentification: Authentification HTTP
+cogimix.custom_provider.authentification.none: Aucune
+cogimix.custom_provider.authentification.basic: Basic
+cogimix.custom_provider.authentification.digest: Digest
+cogimix.custom_provider.authentification.username: Login
+cogimix.custom_provider.authentification.password: Mot de passe
+cogimix.custom_provider.endpoint_url: URL
+cogimix.custom_provider.show_how_to_url: "Pour les utilisateurs avancés uniquement, permet d'ajouter votre musique dans vos résultats de recherche :" 

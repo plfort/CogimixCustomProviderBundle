@@ -1,2 +1,12 @@
 cogimix.manage_custom_providers: Manage custom providers
 cogimix.custom_provider.add: Add
+cogimix.custom_provider.unique_alias: Unique alias
+cogimix.custom_provider.display_name: Name
+cogimix.custom_provider.authentification: HTTP Auth
+cogimix.custom_provider.authentification.none: None
+cogimix.custom_provider.authentification.basic: Basic
+cogimix.custom_provider.authentification.digest: Digest
+cogimix.custom_provider.authentification.username: Username
+cogimix.custom_provider.authentification.password: Password
+cogimix.custom_provider.endpoint_url: URL
+cogimix.custom_provider.show_how_to_url: "Check this project to add your music to Cogimix (for advanced user only !):" 
