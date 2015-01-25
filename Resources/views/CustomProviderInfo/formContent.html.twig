@@ -10,8 +10,10 @@
 <div class="formMessage">
 </div>
 {% if action =='edit' %}
-<div class="col-sm-8">
+<div class="row">
+<div class="col-sm-12">
 Alias : <b>{{ customProviderInfo.alias }}</b>
+</div>
 </div>
 {% endif %}
 {% if action =='create' %}
@@ -63,7 +65,7 @@ Alias : <b>{{ customProviderInfo.alias }}</b>
 </div>
 </div>
 {{ form_rest(form) }}
-<input type="submit" class="offset1 btn btn-success" value="Save"/>
+<input type="submit" class="btn btn-success" value="Save"/>
 
 </form>
 </div>
