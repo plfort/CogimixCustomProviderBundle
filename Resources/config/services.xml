@@ -12,7 +12,7 @@
     <services>
         <service id="cogimix.custom_provider.plugin_provider" class="Cogipix\CogimixCustomProviderBundle\Services\CustomProviderPluginProvider">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="cogimix.custom_provider_plugin_factory" />
             <tag name="cogimix.plugin_provider"/>
         </service>

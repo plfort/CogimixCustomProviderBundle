@@ -6,20 +6,20 @@ use Cogipix\CogimixCommonBundle\Plugin\PluginProviderInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CustomProviderPluginProvider implements PluginProviderInterface{
 
     private $om;
-    private $securityContext;
+    private $tokenStorage;
     protected $plugins = array();
     protected $pluginProviders;
 
     private $pluginFactory;
 
-    public function __construct(ObjectManager $om,SecurityContextInterface $securityContext,CustomProviderPluginFactory $factory){
+    public function __construct(ObjectManager $om,TokenStorageInterface $tokenStorage,CustomProviderPluginFactory $factory){
         $this->om=$om;
-        $this->securityContext=$securityContext;
+        $this->tokenStorage=$tokenStorage;
         $this->pluginFactory=$factory;
 
     }
@@ -52,7 +52,7 @@ class CustomProviderPluginProvider implements PluginProviderInterface{
 
     protected function getCurrentUser() {
         
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
         if($token != null){
            
             $user = $token->getUser();

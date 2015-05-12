@@ -20,10 +20,6 @@ class CustomProviderMusicSearch extends AbstractMusicSearch
             CURLOPT_HTTPHEADER => array('Content-type: application/json'),
             CURLOPT_SSL_VERIFYPEER => false,);
 
-    public function __construct()
-    {
-
-    }
 
     protected function parseResponse($output)
     {

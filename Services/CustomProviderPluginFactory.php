@@ -21,6 +21,7 @@ class CustomProviderPluginFactory{
         $customProviderPlugin->setLogger($this->container->get('logger'));
         $customProviderPlugin->setCustomProviderInfo($customProviderInfo);
         $customProviderPlugin->setSerializer($this->container->get('jms_serializer'));
+        $customProviderPlugin->setSongManager($this->container->get('cogimix.song_manager'));
        return $customProviderPlugin;
     }
 }
