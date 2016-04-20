@@ -2,6 +2,7 @@
 namespace Cogipix\CogimixCustomProviderBundle\Form;
 use Symfony\Component\Form\FormInterface;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -18,17 +19,18 @@ class CustomProviderInfoEditFormType extends CustomProviderInfoFormType{
         $builder->remove('alias');
 
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Cogipix\CogimixCustomProviderBundle\Entity\CustomProviderInfo',
-                'validation_groups' => function(FormInterface $form) {
-                                $default = array('Edit');
-                                $data = $form->getData();
-                                if ('none' != $data->getauthType()) {
-                                    $default[]='CreateWithAuth';
-                                }
-                                return $default;
-                            },
+            'validation_groups' => function(FormInterface $form) {
+                $default = array('Edit');
+                $data = $form->getData();
+                if ('none' != $data->getauthType()) {
+                    $default[]='CreateWithAuth';
+                }
+                return $default;
+            },
         ));
     }
 
